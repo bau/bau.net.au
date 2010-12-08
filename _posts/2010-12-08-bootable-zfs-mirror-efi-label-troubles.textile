@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ZFS Mirror on Solaris Install
+title: "Bootable ZFS Mirror: EFI Label Troubles"
 ---
 
 h1. {{ page.title }}
