@@ -1,0 +1,41 @@
+---
+layout: post
+title: ZFS Mirror on Solaris Install
+---
+
+h1. {{ page.title }}
+
+p(meta). 08/12/2010 - David Goodlad.
+
+During the install of Solaris Express 11, the installer will only install to a
+single disk. It explains that it's simple to setup a mirrored pair of
+boot/root disks; just use zfs attach.
+
+{% highlight sh %}
+# zpool attach rpool c7t4d0 c7t5d0
+cannot label 'c7t5d0': EFI labeled devices are not supported on root pools.
+{% endhighlight %}
+
+Hmm. A quick google search turned up a number of people comlaining about this
+issue, and a consistent set of responses. "Use format to install an SMI
+label" was the most common one, and there were more technical answers that had
+you read the VTOC from the first disk and write it to the other. None of these
+helped. 'zpool' refused to setup the mirror because it saw an EFI label, while
+'format' reported nothing of the sort.
+
+It turns out that we were doing the wrong thing all along. Specifying the
+_slice_ on each drive fixed it:
+
+{% highlight sh %}
+# zpool attach rpool c7t4d0s0 c7t5d0s0
+{% endhighlight %}
+
+All the other instructions found around the net then applied properly.
+
+The reason for this issue is that, as I understand it, if you tell zfs to use
+the entire disk rather than a partition that spans the entire disk, it will
+write an EFI label to the first sector(s?) of the disk. Booting from a disk
+like This won't work in a normal x86 system for a number of reasons (_cough_
+legacy crap _cough_), so we have to use a solaris slice as the zfs device.
+
+Hopefully this helps people like me who run into this same issue!
