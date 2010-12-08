@@ -1,0 +1,27 @@
+---
+layout: post
+title: Vagrant Solaris Base Image
+---
+
+h1. {{ page.title }}
+
+p(meta). 08/12/2010 - Lincoln Stoll.
+
+We've been playing with Solaris a little bit recently on a new NAS, and wanted 
+to get a little more familiar with it overall. Because Vagrant is such a great
+way to manage little test env's, we figured we'd build a Solaris Express
+2010/11 base box to play with. At this point in time you will need to use HEAD
+Vagrant, however the next release will include our changes to make it work
+properly. To give it a go, just create a Vagrantfile like this:
+
+{% highlight ruby %}
+Vagrant::Config.run do |config|
+  config.vm.box = "sxp-201011"
+  config.vm.box_url = "http://s3.lds.li/vagrant/sxp-201011.box"
+  config.vm.system = :solaris
+end
+{% endhighlight %}
+
+Then vagrant up, and vagrant ssh away. This image also has chef installed, so
+you can use that to provision anything you want. This might also be useful
+for people hosting on Joyent, and wanting to test things locally.
