@@ -1,0 +1,16 @@
+h1. This is the data for my site
+
+It is automatically transformed by "Jekyll":http://github.com/mojombo/jekyll into a static site whenever I push this repository to GitHub by a post-commit script in "http://github.com/lstoll/services.lstoll.net/":http://github.com/lstoll/services.lstoll.net/
+
+To get started, I copied Tom Preston-Werner's blog contents from http://github.com/mojombo/tpw , removed his posts/copyright material, and used that as a template. So a big props to him for both creating jekyll, and releasing his site code under the MIT license.
+
+h1. License
+
+Again, edited from TPW's original.
+
+The following directories and their contents are Copyright Lincoln Stoll. You may not reuse anything therein without my permission:
+
+* _posts/
+* images/
+
+All other directories and files are MIT Licensed. The originals were obtained from: http://github.com/mojombo/tpw
